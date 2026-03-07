@@ -1,5 +1,6 @@
-# Weft Harness
+![title hero](title-hero-1.png)
 
+# The Weft Harness
 ## Don't have Claude Code yet?
 
 If you're starting from scratch, use Claude in the browser to get set up.
@@ -18,11 +19,13 @@ terminal session.
 
 ---
 
-A personal development harness for Claude Code. It learns how you learn,
-tracks your growth, and adapts its behavior to where you are right now.
+Weft is a personal development harness for Claude Code. It learns how you learn,
+keeps up with your progress, and adapts its behavior to where you are right now.
 
 Drop some materials, run a ~30-minute interview, and get a system that
 sharpens itself every time you use it.
+
+It's not designed to remember *facts* about you per se. It's designed to understand the way you learn and use that to boost your growth.
 
 ## Prerequisites
 
@@ -43,7 +46,7 @@ git clone https://github.com/hartphoenix/weft ~/weft
 cd ~/weft && bash scripts/bootstrap.sh
 ```
 
-You can clone anywhere — bootstrap resolves paths from wherever you
+You can clone anywhere — the bootstrap script above resolves paths from wherever you
 run it. `~/weft` is the recommended default, and this README uses it
 in all examples.
 
@@ -53,12 +56,12 @@ Bootstrap does four things:
 3. Writes a path-resolution section to `~/.claude/CLAUDE.md`
 4. Creates a config directory (`~/.config/weft/`) with update and digest preferences
 
-Everything is tracked in a manifest (`~/.config/weft/manifest.json`)
-and backed up. Run `bash scripts/uninstall.sh` to reverse it cleanly.
+During installation, everything is tracked in a manifest (`~/.config/weft/manifest.json`)
+and backed up. You can run `bash scripts/uninstall.sh` to reverse it cleanly.
 
 ## Quick start
 
-### 1. (Optional) Load your background
+### 1. (Optional) Load up your background data
 
 Drop files into `~/weft/background/` before running intake. The more
 signal you provide, the sharper your starting profile:
@@ -85,7 +88,7 @@ Start Claude Code in **any project directory** and run:
 The intake interview has four phases:
 
 1. **Discover** — scans your background materials (if any) to build a
-   starting picture
+   starting profile
 2. **Interview** — conversational, ~30 minutes. Covers your
    background, goals, current skills, how you learn, and how you like
    to work
@@ -111,25 +114,17 @@ to `/clear` first to start a fresh session:
 
 ## The learning loop
 
-The harness improves your profile every time you use it. There are
-two update paths — active and passive — and they reinforce each other.
+![the learning loop](learning-loop-1.png)
+
+The harness improves your profile every time you use it. It runs on
+two parallel update paths — active and passive — and they reinforce each other.
 
 1. **Work** — use Claude Code normally in any project.
+    - Optionally, use `/startwork` to get a menu of tasks to choose from. Whatever you provide in your background info – projects, scheduled deadlines, goals – inform Weft's gathering process. 
 2. **Update** — your learning state updates through either path:
    - **Active:** run `/session-review` when you finish a session. It
-     analyzes what you did, quizzes you on 4-6 concepts, and updates
-     your scores and gap classifications.
-   - **Passive:** two complementary triggers keep your profile current
-     without manual action:
-     - `/startwork` auto-dispatches `/session-digest` when 3+ sessions
-       are undigested.
-     - The **session-start hook** nudges you to run `/session-digest`
-       when your profile hasn't updated in a configurable number of
-       days (default: 3). Existing users get a one-time introduction
-       to configure this.
-     - Either way, digest reads your session transcripts, extracts
-       growth-edge evidence, and proposes score updates — no quiz
-       required. You approve or skip each change.
+     analyzes what you did and quizzes you on ~5 relevant concepts, helping you lock in memories. It also updates the record of your progress and hones Weft's model of you for the next session.
+    - **Passive:** background processes designed to be low-friction will periodically assess how the learning's going and offer to update your learning model. It's always up to you whether to accept changes.
 3. **Plan** — next time you start working, `/startwork` reads your
    updated state and proposes what to focus on. It runs automatically
    at session start via the hook, or invoke it directly.
